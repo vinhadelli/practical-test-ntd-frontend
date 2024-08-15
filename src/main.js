@@ -1,6 +1,6 @@
 import './assets/main.css'
 
-import { createApp } from 'vue'
+import { createApp, ref } from 'vue'
 import App from './App.vue'
 import router from './router'
 // Vuetify
@@ -10,11 +10,9 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
 const vuetify = createVuetify({
-    components,
-    directives,
-  })
-  
-  createApp(App)
-  .use(vuetify)
-  .use(router)
-  .mount('#app')
+  components,
+  directives
+})
+const loader = ref(true)
+
+createApp(App).use(vuetify).use(router).provide('loader', loader).mount('#app')

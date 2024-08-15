@@ -4,21 +4,41 @@ import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <div>
+    <header>
+      <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <div class="wrapper">
+        <HelloWorld msg="You did it!" />
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+        <nav>
+          <RouterLink to="/">Home</RouterLink>
+          <RouterLink to="/login">Login</RouterLink>
+        </nav>
+      </div>
+    </header>
 
-  <RouterView />
+    <RouterView />
+  </div>
 </template>
+
+<script>
+import loading from '@/utils/LoaderUtils.js'
+import { useRouter } from 'vue-router'
+
+export default {
+  setup() {
+    loading()
+    const router = useRouter()
+    let user = JSON.parse(localStorage.getItem('user'))
+
+    if (!user.token) {
+      localStorage.removeItem('user')
+      router.push({ name: 'LoginView' })
+    }
+  }
+}
+</script>
 
 <style scoped>
 header {
