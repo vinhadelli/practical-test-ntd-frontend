@@ -17,18 +17,15 @@ import HelloWorld from './components/HelloWorld.vue'
         </nav>
       </div>
     </header>
-
     <RouterView />
   </div>
 </template>
 
 <script>
-import loading from '@/utils/LoaderUtils.js'
 import { useRouter } from 'vue-router'
 
 export default {
   setup() {
-    loading()
     const router = useRouter()
     let user = JSON.parse(localStorage.getItem('user'))
 

@@ -13,6 +13,6 @@ const vuetify = createVuetify({
   components,
   directives
 })
-const loader = ref(true)
+const loader = ref(false)
 
 createApp(App).use(vuetify).use(router).provide('loader', loader).mount('#app')

@@ -1,5 +1,4 @@
 import api from './Api'
-import { useRouter } from 'vue-router'
 async function login(user) {
   return api()
     .post('/auth/login', {
@@ -9,13 +8,13 @@ async function login(user) {
     .then((response) => {
       if (response.data.token) {
         localStorage.setItem('user', JSON.stringify(response.data))
-        useRouter().push({ name: 'Home' })
       }
       return response.data
     })
     .catch((error) => {
-      alert(error)
       console.log(error)
+      alert(error.response.data)
+      return Promise.reject(error)
     })
 }
 
@@ -35,8 +34,9 @@ async function register(user) {
       window.location.reload()
     })
     .catch((error) => {
-      alert(error)
       console.log(error)
+      alert(error.response.data)
+      return Promise.reject(error)
     })
 }
 

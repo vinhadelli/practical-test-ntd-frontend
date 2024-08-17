@@ -1,12 +1,11 @@
 <template>
   <v-sheet rounded class="m-3 about">
-    <LoadOverlay />
     <div v-if="!isSignUp">
       <h1>Login</h1>
       <v-form v-model="loginForm" @submit.prevent="submit">
         <v-text-field
           v-model="user.username"
-          class="mt-2"
+          class="mt-9"
           label="E-mail"
           variant="outlined"
           type="email"
@@ -15,7 +14,7 @@
         />
         <v-text-field
           v-model="user.password"
-          class="mt-2"
+          class="mt-5"
           label="Password"
           variant="outlined"
           type="password"
@@ -25,7 +24,7 @@
         <v-text-field
           v-if="isSignUp"
           v-model="confirmPassword"
-          class="mt-2"
+          class="mt-5"
           label="Confirm the Password"
           variant="outlined"
           type="password"
@@ -34,16 +33,17 @@
         />
         <v-divider />
         <v-btn
-          class="mt-2"
+          class="mt-5"
           :disabled="!loginForm"
           color="success"
           size="large"
           type="submit"
           variant="elevated"
+          :loading="loader"
           block
         >
           <span v-if="!isSignUp">Login</span>
-          <span v-if="!isSignUp">Sign Up</span>
+          <span v-else>Sign Up</span>
         </v-btn>
       </v-form>
     </div>
@@ -52,18 +52,16 @@
 
 <script>
 import { login, register } from '@/services/authService'
-import { loading, doneLoading } from '@/utils/LoaderUtils'
-import LoadOverlay from '@/components/LoadOverlay.vue'
 import { useRouter } from 'vue-router'
+import { inject } from 'vue'
 export default {
   name: 'LoginView',
-  components: {
-    LoadOverlay
-  },
   setup() {
     const router = useRouter()
+    const loader = inject('loader')
     return {
-      router
+      router,
+      loader
     }
   },
   data() {
@@ -78,22 +76,25 @@ export default {
     }
   },
   methods: {
-    submit() {
-      if (this.isSignUp) this.signup()
-      else this.login()
+    async submit() {
+      if (this.isSignUp) await this.signup()
+      else await this.login()
     },
     async login() {
-      loading()
-      console.log('User', this.user) // TODO: remove console.log
-      await login(this.user).finally(() => {
-        doneLoading()
-      })
+      this.loader = true
+      await login(this.user)
+        .then(() => {
+          this.router.push({ name: 'Home' })
+        })
+        .finally(() => {
+          this.loader = false
+        })
     },
     async signup() {
-      loading()
+      this.loader = true
       if (this.password.equals(this.confirmPassword)) {
         await register(this.user).finally(() => {
-          doneLoading()
+          this.loader = false
         })
       } else alert("The passwords don't match!")
     },
