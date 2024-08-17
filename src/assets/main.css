@@ -10,26 +10,30 @@
 a,
 .green {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+  color: #00bd7e;
   transition: 0.4s;
   padding: 3px;
+}
+
+.text-accent {
+  color: #007e54 !important;
+}
+
+.appbar {
+  width: 98% !important;
+  align-self: center !important;
+  /* background-color: var(--color-background-soft) !important; */
+  /* color: var(--color-text) !important; */
+}
+
+.views {
+  align-self: center !important;
+  /* background-color: #bdbdbd !important; */
+  /* color: #212121 !important; */
 }
 
 @media (hover: hover) {
   a:hover {
     background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
   }
 }

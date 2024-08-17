@@ -5,18 +5,18 @@ const config = {
 }
 export default function () {
   const api = axios.create(config)
-  let token = null
+  var token = null
   // Setting up interceptor to check if logged in and insert the JWT token in the request.
-  api.interceptors.request.use(async (config) => {
+  api.interceptors.request.use((request) => {
     if (!token) {
       let user = JSON.parse(localStorage.getItem('user'))
       if (user && user.token) {
         token = user.token
-        config.headers.Authorization = `Bearer ${token}`
-        return config
+        request.headers.Authorization = `Bearer ${token}`
       }
     }
-    return config
+    request.headers['Accept'] = '*/*'
+    return request
   })
 
   api.interceptors.response.use(
@@ -24,6 +24,9 @@ export default function () {
     (error) => {
       console.log('Error: ', error)
       if (401 === error.status) {
+        window.reload(true)
+      }
+      if (403 === error.status) {
         window.reload(true)
       }
       return Promise.reject(error)

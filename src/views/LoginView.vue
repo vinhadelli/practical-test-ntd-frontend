@@ -1,7 +1,8 @@
 <template>
-  <v-sheet rounded class="m-3 about">
-    <div v-if="!isSignUp">
-      <h1>Login</h1>
+  <v-sheet rounded class="m-3 views text-center mt-10" min-width="500px">
+    <div class="mr-5 ml-5 mb-10 mt-10">
+      <h1 v-if="!isSignUp">Login</h1>
+      <h1 v-else>Sign Up</h1>
       <v-form v-model="loginForm" @submit.prevent="submit">
         <v-text-field
           v-model="user.username"
@@ -35,17 +36,26 @@
         <v-btn
           class="mt-5"
           :disabled="!loginForm"
-          color="success"
+          color="#007e54"
           size="large"
           type="submit"
           variant="elevated"
-          :loading="loader"
+          :loading="this.loader"
           block
         >
           <span v-if="!isSignUp">Login</span>
           <span v-else>Sign Up</span>
         </v-btn>
       </v-form>
+      <p class="mt-5" v-if="!isSignUp">
+        Or <b class="text-accent" style="cursor: pointer" @click="isSignUp = true">Sign Up</b> if
+        don't have an account yet!
+      </p>
+      <p class="mt-5" v-else>
+        <b class="text-accent" style="cursor: pointer" @click="isSignUp = false"
+          >Return to Login!</b
+        >
+      </p>
     </div>
   </v-sheet>
 </template>
@@ -53,12 +63,11 @@
 <script>
 import { login, register } from '@/services/authService'
 import { useRouter } from 'vue-router'
-import { inject } from 'vue'
 export default {
   name: 'LoginView',
   setup() {
     const router = useRouter()
-    const loader = inject('loader')
+    let loader = false
     return {
       router,
       loader
@@ -84,7 +93,7 @@ export default {
       this.loader = true
       await login(this.user)
         .then(() => {
-          this.router.push({ name: 'Home' })
+          this.router.push({ name: 'CalculatorView' })
         })
         .finally(() => {
           this.loader = false
@@ -92,11 +101,18 @@ export default {
     },
     async signup() {
       this.loader = true
-      if (this.password.equals(this.confirmPassword)) {
+      console.log(this.user.password + ' ' + this.confirmPassword)
+      console.log(this.user.password === this.confirmPassword)
+
+      if (this.user.password === this.confirmPassword) {
+        console.log('entrei')
         await register(this.user).finally(() => {
           this.loader = false
         })
-      } else alert("The passwords don't match!")
+      } else {
+        alert("The passwords don't match!")
+        this.loader = false
+      }
     },
     required(value) {
       return !!value || 'The Field is required'
@@ -104,13 +120,3 @@ export default {
   }
 }
 </script>
-
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
