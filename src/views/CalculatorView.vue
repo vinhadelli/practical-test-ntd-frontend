@@ -92,6 +92,7 @@ export default {
     async submit() {
       if (!this.validate()) return
       this.loader = true
+      this.result = null
 
       switch (this.calcRequest.operationType) {
         case 1:
@@ -125,6 +126,7 @@ export default {
             .finally(() => (this.loader = false))
           break
       }
+      this.userBalance.update()
       this.loader = false
     },
     validate() {
@@ -138,6 +140,7 @@ export default {
           return false
         }
       }
+      return true
     }
   },
   computed: {
