@@ -85,6 +85,9 @@ export default {
     userBalance.update()
     return { userBalance }
   },
+  mounted() {
+    this.userBalance.update()
+  },
   methods: {
     update() {
       this.userBalance.update()

@@ -93,7 +93,8 @@ export default {
       this.loader = true
       await login(this.user)
         .then(() => {
-          this.router.push({ name: 'CalculatorView' })
+          // this.router.push({ name: 'CalculatorView' })
+          window.location.replace('/calculator')
         })
         .finally(() => {
           this.loader = false
@@ -105,7 +106,6 @@ export default {
       console.log(this.user.password === this.confirmPassword)
 
       if (this.user.password === this.confirmPassword) {
-        console.log('entrei')
         await register(this.user).finally(() => {
           this.loader = false
         })
