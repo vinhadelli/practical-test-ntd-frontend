@@ -1,41 +1,23 @@
-# NTD-Test Frontend
+# practical-test-ntd-front
 
-This template should help get you started developing with Vue 3 in Vite.
+Challenge created for a role in NTD Software. This repository contains the Frontend of the application, in Vue.js.
 
-## Recommended IDE Setup
+The Backend in Java is located in the repository:
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+https://github.com/vinhadelli/practical-test-ntd-backend
 
-## Customize configuration
+## How to run
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+How to run the application
 
-## Project Setup
+### Locally
 
-```sh
-npm install
-```
+Execute the command `docker-compose -f local.docker-compose.yml up -d`. It will build the image of the aplication, pointing to the API that should be listening at the port 8080 from the localhost. The Vue Aplication will be listening at the port 5173.
 
-### Compile and Hot-Reload for Development
+### Pointing to the Cloud
 
-```sh
-npm run dev
-```
+Execute the command `docker-compose -f cloud.docker-compose.yml up -d`. It will build the image of the aplication, pointing to the API hosted in my own cloud, at the address https://ntdcalculatorapi.fenrir.app.br. The Vue Aplication will be listening at the port 5173.
 
-### Compile and Minify for Production
+## Testing the aplication
 
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+### Automated Tests
