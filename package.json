@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 5173",
-    "build-local": "NODE_ENV=local vite build",
-    "build-cloud": "NODE_ENV=cloud vite build",
+    "dev-local": "vite --port 5173 --mode local-dev",
+    "build-local": "vite build --mode local-dev",
+    "build-cloud": "vite build --mode cloud",
     "preview": "vite preview",
     "test:unit": "vitest",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
