@@ -21,6 +21,8 @@
           class="mt-9"
           :label="labelFirst"
           variant="outlined"
+          name="number1"
+          id="number1"
           type="number"
         />
         <v-text-field
@@ -28,6 +30,8 @@
           class="mt-5"
           :label="labelSecond"
           variant="outlined"
+          id="number2"
+          name="number2"
           :disabled="calcRequest.operationType == 5 || calcRequest.operationType == 6"
           type="number"
         />
@@ -35,6 +39,8 @@
           v-model="result"
           class="mt-5"
           label="Result"
+          name="result"
+          id="result"
           variant="outlined"
           type="text"
           disabled

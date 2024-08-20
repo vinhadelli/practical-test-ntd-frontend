@@ -21,3 +21,5 @@ Execute the command `docker-compose -f cloud.docker-compose.yml up -d`. It will 
 ## Testing the aplication
 
 ### Automated Tests
+
+Execute the command `npm run test:unit`, it will run the Vitest utility and test the Views of the aplication.

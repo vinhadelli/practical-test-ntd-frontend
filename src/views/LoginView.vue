@@ -3,11 +3,12 @@
     <div class="mr-5 ml-5 mb-10 mt-10">
       <h1 v-if="!isSignUp">Login</h1>
       <h1 v-else>Sign Up</h1>
-      <v-form v-model="loginForm" @submit.prevent="submit">
+      <v-form v-model="loginForm" @submit.prevent="submit" id="form">
         <v-text-field
           v-model="user.username"
           class="mt-9"
           label="E-mail"
+          id="email"
           variant="outlined"
           type="email"
           placeholder="example@email.com"
@@ -15,6 +16,7 @@
         />
         <v-text-field
           v-model="user.password"
+          id="passwd"
           class="mt-5"
           label="Password"
           variant="outlined"
@@ -38,6 +40,7 @@
           :disabled="!loginForm"
           color="#007e54"
           size="large"
+          id="loginBtn"
           type="submit"
           variant="elevated"
           :loading="this.loader"
